@@ -85,3 +85,15 @@ test('compiling android goes as expected', () => {
   expect(() => compileAndroidCode()).toThrow('you are using the wrong JDK');
   expect(() => compileAndroidCode()).toThrow(/JDK/);
 }); */
+
+// Mock functions
+// Mock function is a fake function, they can be async, they can return promises, some data, etc...
+
+const add = jest.fn(() => 3); // this make add function to always return 3.
+
+test.only('add', () => {
+  expect(add(1, 2)).toBe(3); // Test pass
+  expect(add(6, 3)).toBe(3); // this will still pass because the answer is always gonna be 3, no matter what I pass into the function.
+  expect(add(6)).toBe(3); // Test pass
+  expect(add(2, 2)).toBe(4); // Test pass
+});
