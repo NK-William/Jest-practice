@@ -86,7 +86,7 @@ test('compiling android goes as expected', () => {
   expect(() => compileAndroidCode()).toThrow(/JDK/);
 }); */
 
-// Mock functions
+// Mock functions = Testing fake code to having tests perform reliably
 // Mock function is a fake function, they can be async, they can return promises, some data, etc...
 
 const add = jest.fn(() => 3); // this make add function to always return 3.
