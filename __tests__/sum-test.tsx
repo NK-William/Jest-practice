@@ -1,5 +1,5 @@
 import {sum} from '../src/Functions/sum';
-import {describe, expect, test, it} from '@jest/globals';
+import {describe, expect, test, it, jest} from '@jest/globals';
 
 /* it('Test summation', () => {
   expect(sum(1, 2)).toEqual(3);
@@ -91,9 +91,42 @@ test('compiling android goes as expected', () => {
 
 const add = jest.fn(() => 3); // this make add function to always return 3.
 
-test.only('add', () => {
+test('add', () => {
   expect(add(1, 2)).toBe(3); // Test pass
   expect(add(6, 3)).toBe(3); // this will still pass because the answer is always gonna be 3, no matter what I pass into the function.
   expect(add(6)).toBe(3); // Test pass
-  expect(add(2, 2)).toBe(4); // Test pass
+  expect(add(2, 2)).toBe(3); // Test pass
 });
+
+function forEach(items, callback) {
+  for (let index = 0; index < items.length; index++) {
+    callback(items[index]);
+  }
+}
+
+const mockCallback = jest.fn(x => 42 + x);
+forEach([0, 1], mockCallback);
+
+// The mock function is called twice
+expect(mockCallback.mock.calls.length).toBe(2);
+
+// The first argument of the first call to the function was 0
+expect(mockCallback.mock.calls[0][0]).toBe(0);
+
+// The first argument of the second call to the function was 1 : [1] -> second "call", [0] -> argument.
+expect(mockCallback.mock.calls[1][0]).toBe(1);
+test('test mock callback', () => {
+  // The return value of the first call to the function was 42
+  expect(mockCallback.mock.results[0].value).toBe(42);
+});
+
+const myMock1 = jest.fn();
+const a = new myMock1();
+console.log(myMock1.mock.instances);
+// > [ <a> ]
+
+const myMock2 = jest.fn();
+const b = {};
+const bound = myMock2.bind(b);
+bound();
+console.log(myMock2.mock.contexts);
